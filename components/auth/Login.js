@@ -6,48 +6,20 @@ import Button from '../partials/Button'
 import Card from '../partials/Card'
 import Spinner from '../partials/Spinner'
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
+import {connect} from 'react-redux'
+import {emailChanged ,passwordChanged,onLogin} from '../Action'
 class Login extends Component {
-    constructor(props) {
-        super(props) 
-        this.state={
-            email:'',
-            password:'',
-            error:'',
-            loading:false
-        }
-    }
-
-    onLoginClick () {
-        const  {email,password ,error} = this.state
-        this.setState({loading:true})
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(this.onLoginSuccess.bind(this))
-        .catch(() => {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-             .catch(
-                this.onLoginFailure.bind(this)
-                )
-        })
-    }
-    onLoginSuccess() {
-        this.setState({
-            email:'',
-            password:'',
-            error:'',
-            loading:false
-        })
-    }
-    onLoginFailure() {
-        this.setState({error:ToastAndroid.show('Authentication Failed', ToastAndroid.LONG),loading:false})
-    }
-    onLoading() {
-        if(this.state.loading) {
-            return <Spinner size='small' />
-        }
-        return (
-            <Button style={{justifyContent:'center'}} text='LOGIN' onPress={this.onLoginClick.bind(this)}/>
-        )
-    }
+  onEmailChangedText  (text) {
+    this.props.emailChanged(text)
+  }
+  onPasswordChangedText (text) {
+      this.props.passwordChanged(text)
+  }
+  onLoggedIn ()  {
+    email = this.props.email,
+    password = this.props.password
+    this.props.onLogin({email,password})
+  }
     render() {
         return (
            <View style={Styles.Container}>
@@ -60,22 +32,22 @@ class Login extends Component {
                <View style={Styles.CardSection} >
                    <TextInput
                     placeholder='Email'
-                    value={this.state.email}
-                    onChangeText={email => this.setState({email})}
+                    value = {this.props.email}
+                    onChangeText={this.onEmailChangedText.bind(this)}
                     style={Styles.inputBox}
                    />
                </View>
                <View style={Styles.CardSection} >
                    <TextInput
                     placeholder='password'
+                    value={this.props.password}
+                    onChangeText={this.onPasswordChangedText.bind(this)}
                     secureTextEntry={true}
                     style={Styles.inputBox}
-                    value={this.state.password}
-                    onChangeText={password => this.setState({password})}
                    />
                </View>
               <View style={Styles.CardSection}>
-                    {this.onLoading()}
+            <Button onPress={this.onLoggedIn.bind(this)} >Login </Button>
                 </View>  
             </Card>
            </View>
@@ -107,4 +79,13 @@ const Styles = StyleSheet.create({
         alignItems:'center',
     }
 })
-export default Login
+
+const mapStateToProps = state => {
+    return {
+        email:state.auth.email,
+        password:state.auth.password
+    }
+}
+
+
+export default connect(mapStateToProps,{emailChanged,passwordChanged,onLogin})(Login)

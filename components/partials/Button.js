@@ -7,7 +7,7 @@ import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsi
         <TouchableHighlight onPress={props.onPress} >
             <View style={Styles.Button} >
             <Text>
-                {props.text}
+                {props.children}
             </Text>
             </View>
         </TouchableHighlight>

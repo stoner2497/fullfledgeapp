@@ -1,9 +1,11 @@
-import {email_changed , password_changed,login_user_success} from '../Action/types'
+import {email_changed , password_changed,login_user_success,login_user_failure, on_loading} from '../Action/types'
 
 initialState = {
     email:"",
     password:"",
-    user:''
+    user:null,
+    loading:false,
+    error:''
 }
 
 export default (state = initialState,action) => {
@@ -18,10 +20,25 @@ export default (state = initialState,action) => {
                 ...state,
                 password:action.payload
             }
+        case on_loading:
+            return {
+                ...state,
+                loading:true,
+                error:''
+            }
         case login_user_success:
             return {
                 ...state,
-                user:action.user
+                user:action.payload,
+                error:'',
+                loading:false
+            }
+        case login_user_failure:
+            return {
+                ...state,
+                error:"Authenctication Failed",
+                password:'',
+                loading:false
             }
         default:
             return state

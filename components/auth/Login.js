@@ -8,17 +8,26 @@ import Spinner from '../partials/Spinner'
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
 import {emailChanged ,passwordChanged,onLogin} from '../Action'
+
 class Login extends Component {
   onEmailChangedText  (text) {
     this.props.emailChanged(text)
   }
   onPasswordChangedText (text) {
+      
       this.props.passwordChanged(text)
   }
   onLoggedIn ()  {
     email = this.props.email,
     password = this.props.password
     this.props.onLogin({email,password})
+  }
+  onRender = () => {
+      if(this.props.loading) {
+          return <Spinner size="small" />
+      }
+          return (<Button onPress={this.onLoggedIn.bind(this)} >Login </Button>)
+      
   }
     render() {
         return (
@@ -46,10 +55,12 @@ class Login extends Component {
                     style={Styles.inputBox}
                    />
                </View>
+                   
               <View style={Styles.CardSection}>
-            <Button onPress={this.onLoggedIn.bind(this)} >Login </Button>
+                    {this.onRender()}
                 </View>  
             </Card>
+            {ToastAndroid.show(this.props.error,ToastAndroid.LONG)}
            </View>
         )
     }
@@ -80,11 +91,9 @@ const Styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = state => {
-    return {
-        email:state.auth.email,
-        password:state.auth.password
-    }
+const mapStateToProps = ({auth}) => {
+    const {email,password,error,loading} = auth;
+    return {email,password,error, loading};
 }
 
 

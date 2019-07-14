@@ -55,14 +55,16 @@ class Login extends Component {
                     style={Styles.inputBox}
                    />
                </View>
-                   
+                            
               <View style={Styles.CardSection}>
+                    <Text>{this.props.error}</Text>
                     {this.onRender()}
                 </View>  
             </Card>
-            {ToastAndroid.show(this.props.error,ToastAndroid.LONG)}
-           </View>
+            
+           </View> 
         )
+       
     }
 }
 

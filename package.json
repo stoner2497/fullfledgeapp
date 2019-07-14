@@ -16,6 +16,7 @@
     "react-native-flat-header": "^1.0.6",
     "react-native-lazyload-deux": "^2.0.4",
     "react-native-responsive-screen": "^1.2.2",
+    "react-native-router-flux": "^4.0.6",
     "react-native-vector-icons": "^6.4.2",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",

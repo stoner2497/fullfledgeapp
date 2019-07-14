@@ -7,6 +7,7 @@ import ActivityFeed from './components/ActivityFeed';
 import {Provider} from 'react-redux';
 import store from './store'
 import Login from './components/auth/Login';
+import Router from './components/Router'
 export default class App extends Component {
 
   componentWillMount() {
@@ -26,13 +27,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <View style={{flex:1}}>
-        {/* <LandingPage /> */}
-        <Header >
-          <Text>FITHUB</Text>
-        </Header>
-        <Login />
-      </View>
+        <Router />
       </Provider>
     );
   }

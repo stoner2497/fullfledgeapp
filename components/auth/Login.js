@@ -7,7 +7,7 @@ import Card from '../partials/Card'
 import Spinner from '../partials/Spinner'
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
-import {emailChanged ,passwordChanged,onLogin} from '../Action'
+import {emailChanged ,passwordChanged,onLogin} from '../Action/authAction'
 
 class Login extends Component {
   onEmailChangedText  (text) {
@@ -61,7 +61,6 @@ class Login extends Component {
                     {this.onRender()}
                 </View>  
             </Card>
-            
            </View> 
         )
        

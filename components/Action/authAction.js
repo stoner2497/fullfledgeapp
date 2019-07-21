@@ -14,8 +14,7 @@ export const passwordChanged = (text) => {
     }
 }
 
-export const onLogin = ({email,password}) =>  {
-    return (dispatch) => {
+export const onLogin = ({email,password}) => dispatch => {
         dispatch({type:ON_LOADING})
         firebase.auth().signInWithEmailAndPassword(email, password)
     .then(user => onLoginUser(dispatch,user))
@@ -24,8 +23,19 @@ export const onLogin = ({email,password}) =>  {
         .then(user => onLoginUser(dispatch,user))
         .catch(err => onLoginUserFail(dispatch,err))
     })
-    }
+    
 }
+export const isLoggedIn = () => {
+    return () => {
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user) {
+                Actions.main()
+            } else {
+                return  Actions.auth()
+            }
+        });
+    }
+    }
 
 const onLoginUser = (dispatch,user) => {
     dispatch({

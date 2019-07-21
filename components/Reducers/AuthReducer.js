@@ -2,6 +2,7 @@ import {EMAIL_CHANGED,PASSWORD_CHANGED,ON_LOADING,LOGIN_USER_SUCCESS,LOGIN_USER_
 
 
 initialState = {
+    authenticated:false,
     email:"",
     password:"",
     user:{},
@@ -31,9 +32,11 @@ export default (state = initialState,action) => {
         case LOGIN_USER_SUCCESS:
             return {
                 ...state,
+                loading:false,
                 user:action.payload,
+                authenticated:true,
                 error:'',
-                loading:false
+                
             }
         case LOGIN_USER_FAILURE:
             return {

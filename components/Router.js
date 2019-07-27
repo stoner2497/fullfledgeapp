@@ -16,7 +16,12 @@ class RouterComponent extends React.Component{
         return (
             <Router>
                 <Scene key="root" hideNavBar>
-                  <Switch hideNavBar>
+                    <Scene key="auth" >
+                        <Scene key="login"
+                        component={Login}
+                        title="login"
+                        />
+                    </Scene>
                     <Scene key="main">
                     <Scene key="employee"
                     onRight={() => Actions.Addemployee()}
@@ -29,13 +34,6 @@ class RouterComponent extends React.Component{
                         title="Employee"  
                         />
                     </Scene>
-                    <Scene key="auth" >
-                        <Scene key="login"
-                        component={Login}
-                        title="login"
-                        />
-                    </Scene>
-                    </Switch>
                 </Scene>
             </Router>
         )

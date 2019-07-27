@@ -25,17 +25,17 @@ export const onLogin = ({email,password}) => dispatch => {
     })
     
 }
-export const isLoggedIn = () => {
-    return () => {
-        firebase.auth().onAuthStateChanged((user) => {
-            if(user) {
-                Actions.main()
-            } else {
-                return  Actions.auth()
-            }
-        });
-    }
-    }
+// export const isLoggedIn = () => {
+//     return () => {
+//         firebase.auth().onAuthStateChanged((user) => {
+//             if(user) {
+//                 Actions.main()
+//             } else {
+//                 return  Actions.auth()
+//             }
+//         });
+//     }
+//     }
 
 const onLoginUser = (dispatch,user) => {
     dispatch({

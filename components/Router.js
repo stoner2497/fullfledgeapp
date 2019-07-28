@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {isLoggedIn} from './Action/authAction'
 import Firebase from 'firebase'
 import AddEmployee from './Employees/AddEmployee'
+import EditEmployee from './Employees/EditEmployee'
 class RouterComponent extends React.Component{
     constructor(props) {
         super(props);
@@ -33,6 +34,9 @@ class RouterComponent extends React.Component{
                         component={AddEmployee}
                         title="Employee"  
                         />
+                        <Scene key="Editemployee"
+                          component={EditEmployee}
+                          title="edit employee" />
                     </Scene>
                 </Scene>
             </Router>

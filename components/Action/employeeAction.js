@@ -38,3 +38,10 @@ export const fetchEmployee = () => {
             })
     }
 }
+
+export const updateEmployee = ({name,phone,shift,uid}) => {
+    const currentUser = firebase.auth()
+    firebase.database().ref(`/users/${currentUser.uid}/employee/${uid}`)
+      .set({name,phone,shift})
+      .then(() => Actions.employee({type:'reset'}))
+} 
